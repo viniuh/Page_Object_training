@@ -1,7 +1,10 @@
 from .pages.main_page import MainPage
 from .pages.login_page import LoginPage
+from .pages.basket_page import BasketPage
+import pytest
 
 
+@pytest.mark.skip
 def test_guest_can_go_to_login_page(browser):
     link = "http://selenium1py.pythonanywhere.com"
     page = MainPage(browser, link)
@@ -11,6 +14,7 @@ def test_guest_can_go_to_login_page(browser):
     login_page.should_be_login_page()
 
 
+@pytest.mark.skip
 def test_login_form(browser):
     link1 = "https://selenium1py.pythonanywhere.com/accounts/login/"
     page = LoginPage(browser, link1)
@@ -18,4 +22,17 @@ def test_login_form(browser):
     page.should_be_login_url()
     page.should_be_login_form()
     page.should_be_register_form()
+
+
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasketPage(browser, link)
+    page.open()
+    page.click_on_basket_btn()
+    page.empty_basket()
+    page.should_not_be_quantity()
+
+
+
+
 
