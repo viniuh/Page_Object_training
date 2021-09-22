@@ -1,9 +1,11 @@
 from .base_page import BasePage
 from .locators import ProductPageLocators
+from .locators import MainPageLocators
 import math
 from selenium.common.exceptions import NoAlertPresentException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 
 
 class ProductPage(BasePage):
@@ -20,9 +22,23 @@ class ProductPage(BasePage):
                     "Book title in not presented"
 
     def verify_text(self):
-        assert self.verify_text() in ProductPageLocators.TEXT == "Coders at Work"
+        assert self.browser.find_element(*ProductPageLocators.TEXT).text == "Coders at Work"
 
+    def test_guest_cant_see_success_message_after_adding_product(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
 
+    def test_guest_cant_see_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def test_message_disappeared_after_adding_product(self):
+        assert self.is_disappeared(*ProductPageLocators.SUCCESS_MESSAGE), \
+            "Success message is presented, but should not be"
+
+    def go_to_login_page(self):
+        login_button = self.browser.find_element(*MainPageLocators.LOGIN_LINK)
+        login_button.click()
 
     def solve_quiz_and_get_code(self):
         alert = self.browser.switch_to.alert
