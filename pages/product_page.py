@@ -3,9 +3,6 @@ from .locators import ProductPageLocators
 from .locators import MainPageLocators
 import math
 from selenium.common.exceptions import NoAlertPresentException
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
 
 
 class ProductPage(BasePage):
@@ -18,11 +15,12 @@ class ProductPage(BasePage):
             "The Add_to_basket button is not presented"
 
     def should_be_book_name(self):
-        book_name = self.is_element_present(*ProductPageLocators.BOOK_TITLE), \
+        assert self.is_element_present(*ProductPageLocators.BOOK_TITLE), \
                     "Book title in not presented"
 
-    def verify_text(self):
-        assert self.browser.find_element(*ProductPageLocators.TEXT).text == "Coders at Work"
+    def should_be_verifying_text(self):
+        assert self.browser.find_element(*ProductPageLocators.TEXT).text == "Coders at Work", \
+            "Something wrong with success text"
 
     def test_guest_cant_see_success_message_after_adding_product(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
@@ -46,7 +44,6 @@ class ProductPage(BasePage):
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
         alert.accept()
-        #WebDriverWait(self.browser, 3).until(EC.alert_is_present())
         try:
             alert = self.browser.switch_to.alert
             alert_text = alert.text

@@ -1,8 +1,5 @@
 from .base_page import BasePage
-from selenium.webdriver.common.by import By
 from .locators import MainPageLocators
-from .locators import LoginPageLocators
-from .login_page import LoginPage
 
 
 class BasketPage(BasePage):
@@ -10,11 +7,11 @@ class BasketPage(BasePage):
         bask_btn = self.browser.find_element(*MainPageLocators.VIEW_BASKET_BUTTON)
         bask_btn.click()
 
-    def empty_basket(self):
+    def should_be_empty_basket_text(self):
         assert self.browser.find_element(*MainPageLocators.EMPTY_BASKET).text
 
     def should_not_be_quantity(self):
-        assert self.is_not_element_present(*MainPageLocators.QUANTITY), \
+        assert self.is_not_element_present(*MainPageLocators.QUANTITY_OF_BOOKS), \
             "The quantity is presented on empty basket page"
 
 

@@ -21,7 +21,7 @@ class TestUserAddToBasketFromProductPage():
         page.should_be_register_form()
         page.register_new_user(email1, password1)
         page.click_reg_button()
-        page.success_reg_message()
+        page.should_be_success_reg_message()
 
     def test_user_can_add_product_to_basket(self, browser):
         link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/?promo=newYear2019"
@@ -32,7 +32,8 @@ class TestUserAddToBasketFromProductPage():
 
 
 @pytest.mark.need_review
-@pytest.mark.parametrize('link', ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"])
+@pytest.mark.parametrize('link', ["0", "1", "2", "3", "4", "5", "6",
+                                  pytest.param("7", marks=pytest.mark.xfail), "8", "9"])
 def test_guest_can_add_product_to_basket(browser, link):
     browser.delete_all_cookies()
     link = f"http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer{link}"
@@ -42,6 +43,7 @@ def test_guest_can_add_product_to_basket(browser, link):
     page.should_be_book_name()
     page.add_to_basket()
     page.solve_quiz_and_get_code()
+    page.should_be_verifying_text()
 
 
 @pytest.mark.need_review
@@ -50,7 +52,7 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page = BasketPage(browser, link)
     page.open()
     page.click_on_basket_btn()
-    page.empty_basket()
+    page.should_be_empty_basket_text()
     page.should_not_be_quantity()
 
 
@@ -64,24 +66,18 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     time.sleep(5)
 
 
-
-
-
-
-
-
-
-    """def test_message_disappeared_after_adding_product_to_basket(self, browser):
-        browser.delete_all_cookies()
-        link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/?promo=newYear2019"
-        page = ProductPage(browser, link)
-        page.open()
-        page.should_add_to_basket()
-        page.should_be_book_name()
-        page.add_to_basket()
-        page.solve_quiz_and_get_code()
-        page.verify_text()
-        page.test_message_disappeared_after_adding_product()
+@pytest.mark.skip
+def test_message_disappeared_after_adding_product_to_basket(browser):
+    browser.delete_all_cookies()
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/?promo=newYear2019"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_add_to_basket()
+    page.should_be_book_name()
+    page.add_to_basket()
+    page.solve_quiz_and_get_code()
+    page.should_be_verifying_text()
+    page.test_message_disappeared_after_adding_product()
 
 
 @pytest.mark.skip
@@ -94,18 +90,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
 
 
 @pytest.mark.skip
-d
-
-
-"""
-
-
-
-
-
-
-
-"""def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
+def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     browser.delete_all_cookies()
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/?promo=newYear2019"
     page = ProductPage(browser, link)
@@ -114,37 +99,16 @@ d
     page.should_be_book_name()
     page.add_to_basket()
     page.solve_quiz_and_get_code()
-    page.verify_text()
+    page.should_be_verifying_text()
     page.test_guest_cant_see_success_message_after_adding_product()
-    """
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-"""
-
-
-    def test_guest_can_add_product_to_basket(browser):
-        link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/?promo=newYear2019"
-        page = ProductPage(browser, link)
-        page.open()
-        page.should_add_to_basket()
-        page.should_be_book_name()
-        page.add_to_basket()
-        page.solve_quiz_and_get_code()"""
+@pytest.mark.skip
+def test_guest_can_add_product_to_basket_single(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/coders-at-work_207/?promo=newYear2019"
+    page = ProductPage(browser, link)
+    page.open()
+    page.should_add_to_basket()
+    page.should_be_book_name()
+    page.add_to_basket()
+    page.solve_quiz_and_get_code()

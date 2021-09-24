@@ -1,6 +1,4 @@
 from .base_page import BasePage
-from .locators import MainPageLocators
-from selenium.webdriver.common.by import By
 from .locators import LoginPageLocators
 
 
@@ -36,5 +34,5 @@ class LoginPage(BasePage):
         reg_btn = self.browser.find_element(*LoginPageLocators.REG_BUTTON)
         reg_btn.click()
 
-    def success_reg_message(self):
-        assert self.is_element_present(*LoginPageLocators.SUCCESS_REG_MESSAGE), "Registration is failed"
+    def should_be_success_reg_message(self):
+        assert self.is_element_present(*LoginPageLocators.SUCCESS_REG_MESSAGE), "Registration message is absent"

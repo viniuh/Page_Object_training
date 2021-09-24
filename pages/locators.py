@@ -5,7 +5,7 @@ class MainPageLocators():
     LOGIN_LINK = (By.CSS_SELECTOR, "#login_link")
     EMPTY_BASKET = (By.XPATH, "//div[@id ='content_inner']//p")
     VIEW_BASKET_BUTTON = (By.CSS_SELECTOR, ".btn-group>.btn:nth-child(1)")
-    QUANTITY = (By.CSS_SELECTOR, '[type="number]')
+    QUANTITY_OF_BOOKS = (By.CSS_SELECTOR, '[type="number]')
 
 
 class LoginPageLocators():
