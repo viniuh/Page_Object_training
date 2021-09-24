@@ -46,7 +46,7 @@ class ProductPage(BasePage):
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
         alert.accept()
-        WebDriverWait(self.browser, 3).until(EC.alert_is_present())
+        #WebDriverWait(self.browser, 3).until(EC.alert_is_present())
         try:
             alert = self.browser.switch_to.alert
             alert_text = alert.text
