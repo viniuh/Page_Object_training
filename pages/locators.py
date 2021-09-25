@@ -21,8 +21,9 @@ class LoginPageLocators():
 class ProductPageLocators():
     ADD_TO_BASKET = (By.CSS_SELECTOR, ".btn-add-to-basket")
     BOOK_TITLE = (By.CSS_SELECTOR, ".col-sm-6>h1")
-    TEXT = (By.CSS_SELECTOR, "#messages > div:nth-child(1)>div>strong")
+    BOOK_TITLE_TEXT_SUCCESS = (By.CSS_SELECTOR, "#messages > div:nth-child(1)>div>strong")
     SUCCESS_MESSAGE = (By.CSS_SELECTOR, "#messages > div:nth-child(1)")
+    SUCCESS_DIV = (By.CSS_SELECTOR, "#messages > div:nth-child(2)")
 
 
 class BasePageLocators():

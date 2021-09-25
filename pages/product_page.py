@@ -18,9 +18,13 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.BOOK_TITLE), \
                     "Book title in not presented"
 
-    def should_be_verifying_text(self):
-        assert self.browser.find_element(*ProductPageLocators.TEXT).text == "Coders at Work", \
-            "Something wrong with success text"
+    def should_be_verifying_text_first(self):
+        assert self.browser.find_element(*ProductPageLocators.BOOK_TITLE_TEXT_SUCCESS).text == \
+               self.browser.find_element(*ProductPageLocators.BOOK_TITLE).text, "Title texts aren't matching"
+
+    def should_be_success_div(self):
+        assert self.browser.find_element(*ProductPageLocators.SUCCESS_DIV), \
+            "Something wrong with the success div"
 
     def test_guest_cant_see_success_message_after_adding_product(self):
         assert self.is_not_element_present(*ProductPageLocators.SUCCESS_MESSAGE), \
@@ -51,3 +55,7 @@ class ProductPage(BasePage):
             alert.accept()
         except NoAlertPresentException:
             print("No second alert presented")
+
+
+
+

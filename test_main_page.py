@@ -22,13 +22,15 @@ class TestLoginFromMainPage():
         page.should_be_login_form()
         page.should_be_register_form()
 
-    def test_guest_cant_see_product_in_basket_opened_from_main_page(self, browser):
-        link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
-        page = BasketPage(browser, link)
-        page.open()
-        page.click_on_basket_btn()
-        page.should_be_empty_basket_text()
-        page.should_not_be_quantity()
+
+@pytest.mark.need_review
+def test_guest_cant_see_product_in_basket_opened_from_main_page(browser):
+    link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
+    page = BasketPage(browser, link)
+    page.open()
+    page.click_on_basket_btn()
+    page.should_be_empty_basket_text()
+    page.should_not_be_quantity()
 
 
 
